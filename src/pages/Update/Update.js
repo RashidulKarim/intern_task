@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Update = () => {
     const [inputFieldData, setInputFieldData] = useState({})
     const [userData, setUserData] = useState({})
-    const formRef = useRef()
     const [message, setMessage] = useState({})
 
     useEffect(()=>{
@@ -73,24 +72,12 @@ const Update = () => {
         const obj = { work_place: '', designation: '' };
         newVal?.user_hobby?.value.push(obj);
         setInputFieldData(newVal);
-
-        const userInfo = {...userData};
-        if (userInfo?.user_hobby === undefined) {
-            userInfo.user_hobby = [];
-        }
-        if (!userInfo?.user_hobby.length) {
-            userInfo?.user_hobby.push({ work_place: '', designation: '' });
-        }
-        userInfo?.user_hobby.push(obj);
-        setUserData(userInfo);
     }
     const deleteRepeater = () =>{
         const newVal = {...inputFieldData}
-        const userInfo = {...userData}
         if(newVal?.user_hobby?.value.length === 1){
             return
         }
-        userInfo["user_hobby"].pop()    
         newVal?.user_hobby?.value.pop()
         setInputFieldData(newVal)
     }
@@ -113,7 +100,7 @@ const Update = () => {
                     pattern = {...pattern, pattern:"[A-Za-z0-9]+"}
                 }
                 if(terms === "only_letters"){
-                    pattern = {pattern:"[A-Za-z]+"}
+                    pattern = {pattern:"[A-Za-z ]+"}
                 }
                 if(terms === "integer"){
                     pattern = {min:"0" ,step:"1", pattern:"[0-9]+"}
@@ -152,8 +139,7 @@ const Update = () => {
         })
         .then(res => res.json())
         .then(data => {
-            setMessage(data.messages)
-            formRef.current.reset();
+            setMessage(data)
             btn.innerHTML = 'Updated'
             btn.removeAttribute("disabled")  
         })   
@@ -164,7 +150,7 @@ const Update = () => {
         <div className="input-form">
                 <h1 className="title">Update Form</h1>
                 <div className="main">
-                <form ref={formRef} onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     {inputFieldData &&
                         Object.keys(inputFieldData).map((fieldName, i) =>
                             inputFieldData[fieldName].type === 'textarea' ? (
@@ -177,9 +163,9 @@ const Update = () => {
                                         name={fieldName}
                                         required={inputFieldData[fieldName].required === true}
                                         readOnly={inputFieldData[fieldName].readonly === true}
-                                        className="textarea"
+                                        {...inputFieldData[fieldName].validate && {title: inputFieldData[fieldName].validate}}                                        
                                         {...(inputFieldData[fieldName].value && {
-                                            value: inputFieldData[fieldName].value,
+                                            value: userData[fieldName],
                                         })}
                                         {...(inputFieldData[fieldName].html_attr
                                             ? inputFieldData[fieldName].html_attr
@@ -311,6 +297,7 @@ const Update = () => {
                                                                           .repeater_fields[fName]
                                                                           .type
                                                                   }
+                                                                  {...inputFieldData[fieldName].validate && {title: inputFieldData[fieldName].validate}} 
                                                                   {...(inputFieldData[fieldName]
                                                                       .value && {
                                                                       value: inputFieldData[
@@ -370,6 +357,7 @@ const Update = () => {
                                                       onBlur={(e) =>
                                                           getValue(e, fieldName, fName, 0, true)
                                                       }
+                                                      {...inputFieldData[fieldName].validate && {title: inputFieldData[fieldName].validate}} 
                                                       {...(inputFieldData[fieldName].html_attr
                                                           ? inputFieldData[fieldName].html_attr
                                                           : {})}
@@ -395,8 +383,9 @@ const Update = () => {
                                             readOnly={inputFieldData[fieldName].readonly === true}
                                             type={inputFieldData[fieldName].type}
                                             {...(inputFieldData[fieldName].value && {
-                                                value: inputFieldData[fieldName].value,
+                                                value: userData[fieldName],
                                             })}
+                                            {...inputFieldData[fieldName].validate && {title: inputFieldData[fieldName].validate}} 
                                             {...(inputFieldData[fieldName].html_attr
                                                 ? inputFieldData[fieldName].html_attr
                                                 : {})}

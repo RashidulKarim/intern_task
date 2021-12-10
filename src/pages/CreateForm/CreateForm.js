@@ -187,9 +187,9 @@ const CreateForm = () => {
                                         name={fieldName}
                                         required={inputFieldData[fieldName].required === true}
                                         readOnly={inputFieldData[fieldName].readonly === true}
-                                        className="textarea"
+                                        {...inputFieldData[fieldName].validate && {title: inputFieldData[fieldName].validate}}
                                         {...(inputFieldData[fieldName].value && {
-                                            value: inputFieldData[fieldName].value,
+                                            value: userData[fieldName]
                                         })}
                                         {...(inputFieldData[fieldName].html_attr
                                             ? inputFieldData[fieldName].html_attr
@@ -321,6 +321,7 @@ const CreateForm = () => {
                                                                           .repeater_fields[fName]
                                                                           .type
                                                                   }
+                                                                  {...inputFieldData[fieldName].validate && {title: inputFieldData[fieldName].validate}}
                                                                   {...(inputFieldData[fieldName]
                                                                       .value && {
                                                                       value: inputFieldData[
@@ -380,6 +381,7 @@ const CreateForm = () => {
                                                       onBlur={(e) =>
                                                           getValue(e, fieldName, fName, 0, true)
                                                       }
+                                                      {...inputFieldData[fieldName].validate && {title: inputFieldData[fieldName].validate}}
                                                       {...(inputFieldData[fieldName].html_attr
                                                           ? inputFieldData[fieldName].html_attr
                                                           : {})}
@@ -405,8 +407,9 @@ const CreateForm = () => {
                                             readOnly={inputFieldData[fieldName].readonly === true}
                                             type={inputFieldData[fieldName].type}
                                             {...(inputFieldData[fieldName].value && {
-                                                value: inputFieldData[fieldName].value,
+                                                value: userData[fieldName],
                                             })}
+                                            {...inputFieldData[fieldName].validate && {title: inputFieldData[fieldName].validate}}
                                             {...(inputFieldData[fieldName].html_attr
                                                 ? inputFieldData[fieldName].html_attr
                                                 : {})}
