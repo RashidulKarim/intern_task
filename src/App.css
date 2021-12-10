@@ -1,0 +1,19 @@
+.header{
+  display: flex;
+  width: 900px;
+  margin: 0px auto;
+  justify-content: space-evenly;
+  background-color: beige;
+}
+.nav{
+  list-style: none;
+  display: flex;
+  margin-top: 30px;
+}
+.nav li{
+  margin-right: 20px;
+}
+.nav li a{
+  text-decoration: none;
+  font-weight: 700;
+}

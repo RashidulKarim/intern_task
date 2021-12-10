@@ -1,0 +1,45 @@
+.input-form{
+    width: 900px;
+    margin: 50px auto;
+    border: 2px solid gray;
+}
+.title{
+    text-align: center;
+    color: blue;
+}
+.main{
+    width: 400px;
+    margin: 0px auto;
+}
+.label{
+    display: inline-block;
+    width: 100px;
+    color: tomato;
+    font-weight: 700;
+}
+.labelRepeater{
+    margin-left: 20px;
+    display: inline-block;
+    font-size: 12px;
+    width: 100px;
+    color: rgb(40, 43, 43);
+    font-weight: 700;
+}
+input, textarea{
+    margin-bottom: 10px;
+}
+.add ,.remove{
+    font-size: 25px;
+    display: inline-block;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.submitBtn{
+    width: 170px;
+    margin: 20px 100px;
+    padding: 5px 0;
+}
+.submittedMassage{
+    text-align: center;
+    color: green;
+}
